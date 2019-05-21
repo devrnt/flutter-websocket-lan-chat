@@ -9,6 +9,7 @@ connection.onopen = () => {
   connection.send(
     // Send any json object to the websocket and other devices
     JSON.stringify({
+      'id':'6c84fb90-12c4-11e1-840d-7b25c5ee775a',
       'author': { 'name': 'Peter', 'imageUrl': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200', 'color': '#4286f4', },
       'body': 'This is the a message from client.js',
     })
