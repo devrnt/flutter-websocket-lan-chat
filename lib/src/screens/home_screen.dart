@@ -1,21 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:websocket_lan_chat/config/config.dart';
+import 'package:websocket_lan_chat/src/models/user.dart';
 import 'package:websocket_lan_chat/src/widgets/message_input.dart';
 import 'package:websocket_lan_chat/src/widgets/message_list.dart';
-import 'package:websocket_lan_chat/src/models/user.dart';
 import 'package:websocket_lan_chat/src/models/message.dart';
-
-// TODO: move to provdider
-User _user = new User(
-    name: 'Jonas',
-    imageUrl:
-        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    color: Colors.green);
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -78,9 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _sendMessage() {
+    final User user = Provider.of<User>(context);
+
     final messageBody = _textEditingController.text;
 
-    final Message message = new Message(author: _user, body: messageBody);
+    final Message message = new Message(author: user, body: messageBody);
     final jsonMessage = jsonEncode(message);
 
     channel.sink.add(jsonMessage);

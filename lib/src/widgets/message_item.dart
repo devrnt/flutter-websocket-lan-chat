@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:websocket_lan_chat/src/models/message.dart';
+import 'package:websocket_lan_chat/src/models/user.dart';
 
 class MessageItem extends StatelessWidget {
   final Message message;
@@ -8,10 +10,12 @@ class MessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(alignment:
-      // alignment: message.author.name == _user.name
-      //     ? Alignment.topRight:
-           Alignment.topLeft,
+    final User user = Provider.of<User>(context);
+
+    return Align(
+      alignment: message.author.name == user.name
+          ? Alignment.topRight
+          : Alignment.topLeft,
       child: Chip(
         backgroundColor: message.author.color,
         padding: EdgeInsets.all(4),
