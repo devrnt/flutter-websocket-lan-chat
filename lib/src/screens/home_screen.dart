@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -47,7 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else {
                     Message message =
                         Message.fromJson(jsonDecode(snapshot.data));
-                    messages.add(message);
+                    // This makes sure that the last messages is not just duplicated
+                    // into the messages list
+                    if (messages.isEmpty) {
+                      messages.add(message);
+                    } else {
+                      if (message.id != messages.last.id) {
+                        messages.add(message);
+                      }
+                    }
                   }
                   return MessageList(messages: messages);
                 },
@@ -76,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final messageBody = _textEditingController.text;
 
-    final Message message = new Message(author: user, body: messageBody);
+    final Message message =
+        new Message(id: new Uuid().v1(), author: user, body: messageBody);
     final jsonMessage = jsonEncode(message);
 
     channel.sink.add(jsonMessage);
