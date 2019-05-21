@@ -17,10 +17,7 @@ class User {
 }
 
 // Color of the format #RRGGBB.
-Color hexToColor(String code) {
-  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
-}
+Color hexToColor(String code) =>
+    new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 
-String colorToHex(Color color) {
-  return '#${color.value.toRadixString(16)}';
-}
+String colorToHex(Color color) => '#${color.value.toRadixString(16)}';
