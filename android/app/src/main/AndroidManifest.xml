@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.websocket_lan_chat">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -9,7 +11,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="websocket_lan_chat"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"> 
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
